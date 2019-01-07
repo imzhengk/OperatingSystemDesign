@@ -21,10 +21,6 @@ public class FileListen implements ActionListener {
 		fw.table.setText("C盘内容:\n" + fo.showTable("DiskC") + "\n" + "D盘内容:\n" + fo.showTable("DiskD"));
 		fw.strut.setText("C盘:\n" + fo.showStruct("DiskC") + "\n" + "D盘:\n" + fo.showStruct("DiskD"));
 		fw.memorytable.setText(MemoryOperation.show());
-		//makdir DiskC User z
-		//create DiskC User zhengk
-		//edit DiskC User zhengk
-		//show DiskC z z
 	}
 
 	@Override
@@ -36,7 +32,7 @@ public class FileListen implements ActionListener {
 		String dirname = str[2];
 		String filename = str[3];
 		if(command.equals("help")) {
-			fw.content.setText("exe makdir deldir create delete type edit copy format");
+			fw.content.setText("exe makdir deldir create delete type edit copy move change format close");
 		}
 		else if(command.equals("exe")) {
 			String name = str[1] + " " + str[2] + " " + str[3];
@@ -45,6 +41,11 @@ public class FileListen implements ActionListener {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
+			fw.memorytable.setText(MemoryOperation.show());			
+		}
+		else if(command.equals("close")) {
+			CPUListen.closeAll();
+			fw.content.setText("关机成功");
 			fw.memorytable.setText(MemoryOperation.show());			
 		}
 		else {
@@ -92,26 +93,49 @@ public class FileListen implements ActionListener {
 			case "type":
 				try {
 					String typestr = FileOperation.TypeFile(disk,dirname,filename);
-					fw.content.setText(typestr);
+					fw.document.setText(typestr);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 				break;
 			case "edit":
-				String content = fw.content.getText();
+				String content = fw.document.getText();
 				try {
-					fo.EditFile(disk,dirname,filename,content);
-					fw.content.setText("修改文件完成");
+					if(fo.EditFile(disk,dirname,filename,content)) {
+						fw.content.setText("修改文件完成");
+					}
+					else {
+						fw.content.setText("文件为只读，无法修改");
+					}
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				break;
+			case "copy":
+				String[] ss = fw.content.getText().split(" ");
+				try {
+					fo.CopyFile(disk,dirname,filename,ss[0],ss[1],ss[2]);
+					fw.content.setText("拷贝文件完成");
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 				break;
-			case "copy":
+			case "move":
 				String[] s = fw.content.getText().split(" ");
 				try {
-					fo.CopyFile(disk,dirname,filename,s[0],s[1],s[2]);
+					fo.MoveFile(disk,dirname,filename,s[0],s[1],s[2]);
+					fw.content.setText("移动文件完成");
 				} catch (Exception e1) {
 					e1.printStackTrace();
+				}
+				break;
+			case "change":
+				String contenta = fw.content.getText();
+				try {
+					fo.Change(disk,dirname,filename,contenta);
+					fw.content.setText("改变属性完成");
+				} catch (Exception e2) {
+					e2.printStackTrace();
 				}
 				break;
 			case "format":

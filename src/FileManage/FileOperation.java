@@ -104,6 +104,13 @@ public class FileOperation {
 		return Tools.searchBlock(f,filename);
 	}
 	
+	//创建某个目录对象
+	public File dirObject(String disk,String dirname,String filename) throws Exception {
+		int blocknum = searchDir(disk,dirname);
+		File f = new File(disk + "/" + blocknum + ".txt"); 
+		return f;
+	}
+	
 	//创建某个文件对象
 	public File fileObject(String disk,String dirname,String filename) throws Exception {
 		int blocknum = searchFile(disk,dirname,filename);
@@ -149,10 +156,17 @@ public class FileOperation {
 		WriteToFile(disk);
 	}
 	
+	//移动文件
+	public void MoveFile(String disk,String dirname,String filename,String disk1,String dirname1,String filename1) throws Exception {
+		String str = TypeFile(disk,dirname,filename);
+		deleteFile(disk,dirname,filename);
+		createFile(disk1,dirname1,filename1);
+		EditFile(disk1,dirname1,filename1,str);
+	}
+	
 	//拷贝文件
 	public void CopyFile(String disk,String dirname,String filename,String disk1,String dirname1,String filename1) throws Exception {
 		String str = TypeFile(disk,dirname,filename);
-		deleteFile(disk,dirname,filename);
 		createFile(disk1,dirname1,filename1);
 		EditFile(disk1,dirname1,filename1,str);
 	}
@@ -178,15 +192,26 @@ public class FileOperation {
 	}
 	
 	//修改文件内容
-	public void EditFile(String disk,String dirname,String filename,String content) throws Exception {
-		File f = fileObject(disk,dirname,filename); 
-		FileWriter writer = new FileWriter(f);
-        writer.write(content);   
-        writer.close();
-        
-        int dirnum = searchDir(disk,dirname);
-        File dirfile = new File(disk + "/" + dirnum + ".txt");
-        Tools.modifyLength(dirfile,filename,content.length());
+	public boolean EditFile(String disk,String dirname,String filename,String content) throws Exception {		
+		File dirfile = dirObject(disk,dirname,filename); 
+		boolean flag = Tools.judgeWR(dirfile,filename);
+		if(flag) {
+			File f = fileObject(disk,dirname,filename); 
+			FileWriter writer = new FileWriter(f);
+	        writer.write(content);   
+	        writer.close();      
+	        Tools.modifyLength(dirfile,filename,content.length());
+		}
+		else {
+			System.out.println("文件为只读属性，不可修改");
+		}
+		return flag;
+	}
+	
+	//修改文件属性
+	public void Change(String disk,String dirname,String filename,String content) throws Exception {
+		File dirfile = dirObject(disk,dirname,filename); 
+        Tools.modifyWR(dirfile,filename,content);
 	}
 	
 	//磁盘格式化
@@ -233,7 +258,7 @@ public class FileOperation {
 			String linefile = null;
 			while((linefile = brfile.readLine()) != null) {
 				String[] strfile = linefile.split(" ");
-				sb.append("    --" + strfile[0] + "       block:" + strfile[2] + " length:" + strfile[3] + "\n");
+				sb.append("    --" + strfile[0] + "       block:" + strfile[2] + " length:" + strfile[3] + " 属性:" + strfile[4] + "\n");
 			}		
 			brfile.close();
 		}

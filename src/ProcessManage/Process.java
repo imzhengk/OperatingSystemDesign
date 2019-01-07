@@ -1,5 +1,8 @@
 package ProcessManage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -30,6 +33,18 @@ public class Process {
 				sb.append(pcb.toString()+ "\n");
 			}
 		}
+		return sb.toString();
+	}
+	
+	public static String showOutfile() throws Exception {
+		StringBuffer sb = new StringBuffer();
+		File f = new File("out.txt");
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		String line = null;
+		while((line = br.readLine()) != null) {
+			sb.append(line + "\n");
+		}
+		br.close();
 		return sb.toString();
 	}
 	

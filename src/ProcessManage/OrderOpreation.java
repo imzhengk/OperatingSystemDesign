@@ -13,7 +13,7 @@ public class OrderOpreation {
 	PCB pcb;
 	Queue<String> order = new LinkedList<String>();
 	int x = 0;
-	int time = 2;
+	int time = 5;
 	
 	public String getOrderContent() {
 		StringBuffer sb = new StringBuffer();
@@ -33,7 +33,7 @@ public class OrderOpreation {
 		boolean flag = false;
 		while(!order.isEmpty()) {		
 			String str = order.poll();
-			if(str.startsWith("A") || str.startsWith("B") || str.startsWith("C")) {
+			if(str.startsWith("!")) {
 				UseEquip(str);
 				flag = true;
 				break;
@@ -82,6 +82,8 @@ public class OrderOpreation {
 	
 	public void UseEquip(String str) {
 		Process.waitPCB(pcb);
+//		EquipA ea = new EquipA(pcb.name,5);
+//		Process.againPCB(pcb);
 //		equip.UseEquip(str);  使用设备
 	}
 	

@@ -101,7 +101,7 @@ public class MemoryOperation {
 	    }
 		return s;
     }
-	public void closeAll()
+	public static void closeAll()
 	{
 		File file = new File("Memory");
         File[] files = file.listFiles();

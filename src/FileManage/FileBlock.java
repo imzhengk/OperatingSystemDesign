@@ -4,7 +4,7 @@ public class FileBlock {
 	String filename;
 	String extension;
 //	char fileordir;
-//	char onlyread;
+	String wr = "write";
 //	char showornot;
 	int startblock;
 	int filelength;
@@ -25,6 +25,6 @@ public class FileBlock {
 	
 	@Override
 	public String toString() {
-		return filename + " " + extension + " " + startblock + " " + filelength + " ";
+		return filename + " " + extension + " " + startblock + " " + filelength + " " + wr + " ";
 	}
 }

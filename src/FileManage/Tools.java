@@ -10,8 +10,8 @@ public class Tools {
 	//获得进程/文件名（无后缀）
 	public static String getName(String strs) {
 		String[] str = strs.split(" ");
-		String disk = str[0];
-		String dirname = str[1];
+//		String disk = str[0];
+//		String dirname = str[1];
 		String filename = str[2];
 		return filename;
 	}
@@ -98,7 +98,7 @@ public class Tools {
 			}
 			else {
 				str[3] = String.valueOf(filelength);
-				sb.append(str[0] + " " + str[1] + " " + str[2] + " " + str[3] + " " + "\n");
+				sb.append(str[0] + " " + str[1] + " " + str[2] + " " + str[3] + " " + str[4] + " " + "\n");
 			}
 		}
 		br.close();
@@ -107,4 +107,43 @@ public class Tools {
         writer.close();
 	}	
 	
+	//修改读写属性
+	public static void modifyWR(File f,String filename,String wr) throws Exception {
+		StringBuffer sb = new StringBuffer();
+		FileReader in = new FileReader(f);
+		BufferedReader br = new BufferedReader(in);
+		String line = null;
+		while((line = br.readLine()) != null) {
+			String[] str = line.split(" ");
+			if(!str[0].equals(filename)) {
+				sb.append(line + "\n");
+			}
+			else {
+				str[4] = wr;
+				sb.append(str[0] + " " + str[1] + " " + str[2] + " " + str[3] + " " + str[4] + " " + "\n");
+			}
+		}
+		br.close();
+		FileWriter writer = new FileWriter(f);
+        writer.write(sb.toString());   
+        writer.close();
+	}	
+	
+	//读写属性判断，可写为true
+	public static boolean judgeWR(File f,String filename) throws Exception {
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		boolean flag = false;
+		String line = null;
+		while((line = br.readLine()) != null) {
+			String[] str = line.split(" ");
+			if(str[0].equals(filename)) {
+				if(str[4].equals("write")) {
+					flag = true;
+				}
+				break;
+			}
+		}
+		br.close();	
+		return flag;
+	}
 }

@@ -17,9 +17,11 @@ public class FileWindow extends JFrame {
 	public JTextField content;
 	public JTextArea table;
 	public JTextArea strut;
+	public JTextArea document;
 	public JTextArea memorytable;
 	public JTextArea processtable;
 	public JTextArea queue;
+	public JTextArea outfile;
 	
 	public FileWindow() throws Exception {
 		init();
@@ -37,8 +39,10 @@ public class FileWindow extends JFrame {
 		table = new JTextArea(15,25);  //磁盘分配表
 		strut = new JTextArea(15,25);  //目录文件结构名
 		memorytable = new JTextArea(15,25);  //主存分配表
+		document = new JTextArea(10,20);  //就绪队列内容
 		processtable = new JTextArea(10,15);  //进程内容
 		queue = new JTextArea(10,20);  //就绪队列内容
+		outfile = new JTextArea(10,15);  //out文件内容
 		JButton open = new JButton("开机");
 		JButton button = new JButton("确认");
 		
@@ -57,8 +61,10 @@ public class FileWindow extends JFrame {
 		add(new JScrollPane(table));
 		add(new JScrollPane(strut));
 		add(new JScrollPane(memorytable));
+		add(new JScrollPane(document));
 		add(new JScrollPane(processtable));
 		add(new JScrollPane(queue));
+		add(new JScrollPane(outfile));
 	}
 	
 }
