@@ -11,6 +11,28 @@ public class Process {
 	static Queue<PCB> readyqueue = new LinkedList<PCB>(); 
 	static Queue<PCB> waitqueue = new LinkedList<PCB>(); 
 	
+	public static String getReadyQueue() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("就绪队列内容：\n");
+		if(!readyqueue.isEmpty()) {
+			for(PCB pcb : readyqueue) {
+				sb.append(pcb.toString()+ "\n");
+			}
+		}
+		return sb.toString();
+	}
+	
+	public static String getWaitQueue() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("阻塞队列内容：\n");
+		if(!waitqueue.isEmpty()) {
+			for(PCB pcb : waitqueue) {
+				sb.append(pcb.toString()+ "\n");
+			}
+		}
+		return sb.toString();
+	}
+	
 	public static void createPCB(String name) throws Exception {
 		
 		String pcbname = Tools.getName(name);

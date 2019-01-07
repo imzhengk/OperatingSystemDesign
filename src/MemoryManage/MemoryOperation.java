@@ -14,6 +14,7 @@ public class MemoryOperation {
 	
 	public static String show(){
 		StringBuffer sb = new StringBuffer();
+		sb.append("主存内容：\n");
 		 for(int e=0;e<32;e++){
 			 sb.append((flag[e]+"    "));
 		     if((e+1)%8==0) {

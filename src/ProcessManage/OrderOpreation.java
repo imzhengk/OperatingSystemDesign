@@ -6,19 +6,32 @@ import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Windows.FileWindow;
+
 public class OrderOpreation {
+	FileWindow fw;
 	PCB pcb;
-	public static Queue<String> order = new LinkedList<String>();
+	Queue<String> order = new LinkedList<String>();
 	int x = 0;
+	int time = 2;
 	
-	public OrderOpreation(PCB pcb) {
-		this.pcb = pcb;
-		this.order = pcb.order;
+	public String getOrderContent() {
+		StringBuffer sb = new StringBuffer();
+		for(String str : this.order) {
+			sb.append(str + "\n");
+		}
+		return sb.toString();
 	}
 	
-	public void ExeOrder() {
+	public OrderOpreation(PCB pcb,FileWindow fw) {
+		this.pcb = pcb;
+		this.order = pcb.order;
+		fw.processtable.setText(getOrderContent());
+	}
+	
+	public int ExeOrder() {
 		boolean flag = false;
-		while(!order.isEmpty()) {
+		while(!order.isEmpty()) {		
 			String str = order.poll();
 			if(str.startsWith("A") || str.startsWith("B") || str.startsWith("C")) {
 				UseEquip(str);
@@ -42,9 +55,8 @@ public class OrderOpreation {
 			if(str.startsWith("x--")) {
 				SelfDe();
 			}
-			System.out.println(pcb.name + " " + x);
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(time*1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -52,6 +64,7 @@ public class OrderOpreation {
 		if(!flag) {
 			Process.destroyPCB(pcb);
 		}
+		return x;
 	}
 	
 	public int Assign(String str) {

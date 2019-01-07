@@ -1,4 +1,4 @@
-package Windows;
+import Windows.FileWindow;
 
 public class Main {
 

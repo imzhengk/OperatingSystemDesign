@@ -26,7 +26,7 @@ public class PCB {
 	
 	@Override
 	public String toString() {
-		return name + " " + page;
+		return "进程名：" + name + " 页号：" + page;
 	}
 		
 }

@@ -6,20 +6,18 @@ import java.awt.event.ActionListener;
 
 import Windows.FileWindow;
 import MemoryManage.MemoryOperation;
-import ProcessManage.Process;
+import ProcessManage.CPUListen;
 
 public class FileListen implements ActionListener {
 	FileWindow fw;
 	FileOperation fo;
 	MemoryOperation mo;
-	Process pr;
 	
 	public FileListen(FileWindow fw) throws Exception {
 		this.fw = fw;
 		fo = new FileOperation();
 		mo = new MemoryOperation();
-		pr = new Process();
-		fw.content.setText("格式：命令 磁盘(DiskC/D) [目录(z)] [文件(z)]");
+		fw.content.setText("格式：命令 磁盘(DiskC/D) [目录(z)] [文件(z)] exe DiskC User Zhengk");
 		fw.table.setText("C盘内容:\n" + fo.showTable("DiskC") + "\n" + "D盘内容:\n" + fo.showTable("DiskD"));
 		fw.strut.setText("C盘:\n" + fo.showStruct("DiskC") + "\n" + "D盘:\n" + fo.showStruct("DiskD"));
 		fw.memorytable.setText(MemoryOperation.show());
@@ -43,7 +41,7 @@ public class FileListen implements ActionListener {
 		else if(command.equals("exe")) {
 			String name = str[1] + " " + str[2] + " " + str[3];
 			try {
-				Process.createPCB(name);
+				CPUListen.create(name);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -93,7 +91,7 @@ public class FileListen implements ActionListener {
 				break;
 			case "type":
 				try {
-					String typestr = fo.TypeFile(disk,dirname,filename);
+					String typestr = FileOperation.TypeFile(disk,dirname,filename);
 					fw.content.setText(typestr);
 				} catch (Exception e1) {
 					e1.printStackTrace();
