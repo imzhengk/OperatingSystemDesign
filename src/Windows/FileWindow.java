@@ -23,10 +23,17 @@ public class FileWindow extends JFrame {
 	public JTextArea queue;
 	public JTextArea outfile;
 	
+	public JTextField equa1;
+	public JTextField equa2;
+	public JTextField equa3;
+	public JTextField equb1;
+	public JTextField equb2;
+	public JTextField equc1;
+	
 	public FileWindow() throws Exception {
 		init();
 		setVisible(true);
-		setBounds(100,100,800,500);
+		setBounds(100,100,900,550);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
@@ -34,6 +41,7 @@ public class FileWindow extends JFrame {
 		setLayout(new FlowLayout());
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
+		JPanel panel3 = new JPanel();
 		text = new JTextField(25);
 		content = new JTextField(40);
 		table = new JTextArea(15,25);  //磁盘分配表
@@ -43,6 +51,14 @@ public class FileWindow extends JFrame {
 		processtable = new JTextArea(10,15);  //进程内容
 		queue = new JTextArea(10,20);  //就绪队列内容
 		outfile = new JTextArea(10,15);  //out文件内容
+		
+		equa1 = new JTextField(10);
+		equa2 = new JTextField(10);
+		equa3 = new JTextField(10);
+		equb1 = new JTextField(10);
+		equb2 = new JTextField(10);
+		equc1 = new JTextField(10);
+		
 		JButton open = new JButton("开机");
 		JButton button = new JButton("确认");
 		
@@ -65,6 +81,14 @@ public class FileWindow extends JFrame {
 		add(new JScrollPane(processtable));
 		add(new JScrollPane(queue));
 		add(new JScrollPane(outfile));
+		panel3.add(equa1);
+		panel3.add(equa2);
+		panel3.add(equa3);
+		panel3.add(equb1);
+		panel3.add(equb2);
+		panel3.add(equc1);
+		add(panel3);
+		
 	}
 	
 }

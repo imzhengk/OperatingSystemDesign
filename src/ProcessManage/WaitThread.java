@@ -23,10 +23,8 @@ public class WaitThread extends Thread {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				Process.waitqueue.remove();
-				Process.readyqueue.offer(pcb);
+				Process.againPCB(pcb);
 				fw.queue.setText(Process.getReadyQueue() + "\n" + Process.getWaitQueue());
-//				Process.againPCB(Process.waitqueue.element());
 			}
 		}
 	}

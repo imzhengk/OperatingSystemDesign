@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import EquipManage.Equip;
 import Windows.FileWindow;
 
 public class OrderOpreation {
@@ -81,12 +82,13 @@ public class OrderOpreation {
 	}
 	
 	public void UseEquip(String str) {
+		char[] chs = str.toCharArray();
+		int time = chs[2] - '0';
 		pcb.time = 5;
 		pcb.x = x;
 		Process.waitPCB(pcb);
-//		EquipA ea = new EquipA(pcb.name,5);
-//		Process.againPCB(pcb);
-//		equip.UseEquip(str);  使用设备
+		String strs = pcb.name + " " + chs[1] + " " + time;
+		Equip.getEquip(strs);
 	}
 	
 	public void End() throws Exception {

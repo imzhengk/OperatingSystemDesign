@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import EquipManage.Equip;
 import MemoryManage.MemoryOperation;
 import Windows.FileWindow;
 
 public class CPUListen extends Thread implements ActionListener {  
 	FileWindow fw;
 	WaitThread wt;
+	Equip eq;
 	
 	public CPUListen(FileWindow fw) {
 		this.fw = fw;
@@ -17,8 +19,10 @@ public class CPUListen extends Thread implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		wt = new WaitThread(fw);
+		eq = new Equip(fw);
 		this.start();
 		wt.start();
+		eq.start();
 	}
 
 	public void run() {

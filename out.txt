@@ -1,5 +1,0 @@
-zk.exe x=-1
-zk.exe x=-1
-zk.exe x=-1
-zk.exe x=3
-zk.exe x=3
