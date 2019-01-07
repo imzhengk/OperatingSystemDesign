@@ -12,8 +12,8 @@ public class OrderOpreation {
 	FileWindow fw;
 	PCB pcb;
 	Queue<String> order = new LinkedList<String>();
-	int x = 0;
-	int time = 5;
+	static int x = 0;
+	int time = 2;
 	
 	public String getOrderContent() {
 		StringBuffer sb = new StringBuffer();
@@ -38,7 +38,7 @@ public class OrderOpreation {
 				flag = true;
 				break;
 			}
-			if(str.startsWith("end")) {
+			else if(str.startsWith("end")) {
 				try {
 					End();
 				} catch (Exception e) {
@@ -46,13 +46,13 @@ public class OrderOpreation {
 				}
 				break;
 			}
-			if(str.startsWith("x=")) {
+			else if(str.startsWith("x=")) {
 				Assign(str);
 			}
-			if(str.startsWith("x++")) {
+			else if(str.startsWith("x++")) {
 				SelfIn();
 			}
-			if(str.startsWith("x--")) {
+			else if(str.startsWith("x--")) {
 				SelfDe();
 			}
 			try {
@@ -81,6 +81,8 @@ public class OrderOpreation {
 	}
 	
 	public void UseEquip(String str) {
+		pcb.time = 5;
+		pcb.x = x;
 		Process.waitPCB(pcb);
 //		EquipA ea = new EquipA(pcb.name,5);
 //		Process.againPCB(pcb);

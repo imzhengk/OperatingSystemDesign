@@ -37,8 +37,8 @@ public class FileWindow extends JFrame {
 		text = new JTextField(25);
 		content = new JTextField(40);
 		table = new JTextArea(15,25);  //磁盘分配表
-		strut = new JTextArea(15,25);  //目录文件结构名
-		memorytable = new JTextArea(15,25);  //主存分配表
+		strut = new JTextArea(15,30);  //目录文件结构名
+		memorytable = new JTextArea(15,20);  //主存分配表
 		document = new JTextArea(10,20);  //就绪队列内容
 		processtable = new JTextArea(10,15);  //进程内容
 		queue = new JTextArea(10,20);  //就绪队列内容

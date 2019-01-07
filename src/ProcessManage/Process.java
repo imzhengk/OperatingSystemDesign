@@ -11,8 +11,8 @@ import MemoryManage.MemoryOperation;
 
 public class Process {
 
-	static Queue<PCB> readyqueue = new LinkedList<PCB>(); 
-	static Queue<PCB> waitqueue = new LinkedList<PCB>(); 
+	static volatile Queue<PCB> readyqueue = new LinkedList<PCB>(); 
+	static volatile Queue<PCB> waitqueue = new LinkedList<PCB>(); 
 	
 	public static String getReadyQueue() {
 		StringBuffer sb = new StringBuffer();
@@ -61,17 +61,17 @@ public class Process {
 	
 	public static void destroyPCB(PCB pcb) {
 		MemoryOperation.destroyPage(pcb.name);  //调用主存
-		readyqueue.remove(pcb);
+		readyqueue.remove();
 	}
 	
 	public static void waitPCB(PCB pcb) {
-		MemoryOperation.destroyPage(pcb.name);  //调用主存
-		readyqueue.remove(pcb);
+//		MemoryOperation.destroyPage(pcb.name);  //调用主存
+		readyqueue.remove();
 		waitqueue.offer(pcb);
 	}
 	
 	public static void againPCB(PCB pcb) {
-		waitqueue.remove(pcb);
+		waitqueue.remove();
 		readyqueue.offer(pcb);
 	}
 	

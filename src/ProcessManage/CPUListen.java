@@ -2,19 +2,23 @@ package ProcessManage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import MemoryManage.MemoryOperation;
 import Windows.FileWindow;
 
 public class CPUListen extends Thread implements ActionListener {  
 	FileWindow fw;
+	WaitThread wt;
 	
 	public CPUListen(FileWindow fw) {
 		this.fw = fw;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		wt = new WaitThread(fw);
 		this.start();
+		wt.start();
 	}
 
 	public void run() {
@@ -50,6 +54,8 @@ public class CPUListen extends Thread implements ActionListener {
 	public static void closeAll() {
 		try {
 			MemoryOperation.closeAll();
+			File f = new File("out.txt");
+			f.delete();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

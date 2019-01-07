@@ -68,16 +68,7 @@ public class MemoryOperation {
 			
 		}
 	}
-	/*public void  writeMemory(String z)
-	{
-		try 
-		{
-			
-		    this.z=z;
-		   
-		}
-		catch(IOException e) {}
-	}*/
+	
 	public static String getOrders(String name) throws Exception
 	{
 		p = name;
