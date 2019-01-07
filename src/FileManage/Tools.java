@@ -7,6 +7,15 @@ import java.io.FileWriter;
 
 public class Tools {
 	
+	//获得进程/文件名（无后缀）
+	public static String getName(String strs) {
+		String[] str = strs.split(" ");
+		String disk = str[0];
+		String dirname = str[1];
+		String filename = str[2];
+		return filename;
+	}
+	
 	//把内容写入某个文件
 	public static void WriteContent(String content,String filename) throws Exception {
 		File f = new File(filename);
@@ -17,7 +26,7 @@ public class Tools {
 	
 	//获取分配表盘符值
 	public static int getd(String disk) {
-		int d = 0;
+		int d = -1;
 		if(disk.equals("DiskC")) d = 0;
 		if(disk.equals("DiskD")) d = 1;
 		return d;
@@ -27,7 +36,7 @@ public class Tools {
 	public static int searchBlock(File f,String name) throws Exception {
 		FileReader in = new FileReader(f);
 		BufferedReader br = new BufferedReader(in);
-		int blocknum = 0;
+		int blocknum = -1;
 		String line = null;
 		while((line = br.readLine()) != null) {
 			String[] str = line.split(" ");

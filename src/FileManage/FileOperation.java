@@ -40,7 +40,7 @@ public class FileOperation {
 	
 	//分配盘块
 	public int allocate(String disk) throws Exception {
-		int num = 0;
+		int num = -1;
 		int d = Tools.getd(disk);
 		for(int i=3;i<128;i++) {
 			if(AllocationTable[d][i]=='0') {
@@ -56,13 +56,21 @@ public class FileOperation {
 	}
 	
 	//创建新目录
-	public void makeDir(String disk,String dirname) throws Exception {
-		String str = dirname + " ml";
-		FileBlock fb = new FileBlock(str);
-		int first = allocate(disk);
-		fb.setBlock(first);
-		String content = fb.toString();
-		Tools.WriteContent(content,disk + "/" + "2.txt");
+	public boolean makeDir(String disk,String dirname) throws Exception {
+		String basedirname = disk + "/2" + ".txt";
+		boolean flag = Tools.judgeSameName(basedirname,dirname);
+		if(flag) {
+			System.out.println("目录重名，无法创建");
+		}
+		else {
+			String str = dirname + " ml";
+			FileBlock fb = new FileBlock(str);
+			int first = allocate(disk);
+			fb.setBlock(first);
+			String content = fb.toString();
+			Tools.WriteContent(content,disk + "/" + "2.txt");
+		}
+		return !flag;
 	}
 	
 	//删除目录
@@ -77,18 +85,20 @@ public class FileOperation {
 			deleteFile(disk,dirname,str[0]);
 		}
 		br.close();
+		modifyTable(disk,dirblocknum);           //修改分配表
+		dirfile.delete();
 		File f = new File(disk + "/" + "2.txt"); 
 		Tools.modifyDir(f,dirname);
 	}
 	
 	//找目录盘块号
-	public int searchDir(String disk,String dirname) throws Exception {
+	public static int searchDir(String disk,String dirname) throws Exception {
 		File f = new File(disk + "/" + "2.txt");
 		return Tools.searchBlock(f,dirname);
 	}
 	
 	//找文件盘块号
-	public int searchFile(String disk,String dirname,String filename) throws Exception {
+	public static int searchFile(String disk,String dirname,String filename) throws Exception {
 		int dirblocknum = searchDir(disk,dirname);
 		File f = new File(disk + "/" + dirblocknum + ".txt");
 		return Tools.searchBlock(f,filename);
@@ -102,7 +112,7 @@ public class FileOperation {
 	}
 	
 	//创建新文件
-	public void createFile(String disk,String dirname,String filename) throws Exception {
+	public boolean createFile(String disk,String dirname,String filename) throws Exception {
 		int dirblocknum = searchDir(disk,dirname);
 		String filesdirname = disk + "/" + dirblocknum + ".txt";  //文件块存放处
 		boolean flag = Tools.judgeSameName(filesdirname,filename);
@@ -118,6 +128,7 @@ public class FileOperation {
 			String content = fb.toString();
 			Tools.WriteContent(content,filesdirname);
 		}
+		return !flag;
 	}
 	
 	//删除文件
@@ -147,14 +158,14 @@ public class FileOperation {
 	}
 	
 	//显示文件内容
-	public String TypeFile(String disk,String dirname,String filename) throws Exception {
+	public static String TypeFile(String disk,String dirname,String filename) throws Exception {
 		int fileblocknum = searchFile(disk,dirname,filename);
 		File f = new File(disk + "/" + fileblocknum + ".txt"); 
 		return TypeContent(f);
 	}
 		
 	//显示文件内容-显示
-	public String TypeContent(File f) throws Exception {
+	public static String TypeContent(File f) throws Exception {
 		StringBuffer sb = new StringBuffer();
 		FileReader in = new FileReader(f);
 		BufferedReader br = new BufferedReader(in);
@@ -188,6 +199,8 @@ public class FileOperation {
 				AllocationTable[d][i]='0';
 			}
 		}
+		File f = new File(disk + "/2.txt");
+		f.createNewFile();
 		AllocationTable[d][2]='1';
 		WriteToFile(disk);	
 	}
@@ -202,6 +215,29 @@ public class FileOperation {
 				sb.append("\n");
 			}
 		}
+		return sb.toString();
+	}
+	
+	//展示结构表 
+	public String showStruct(String disk) throws Exception {		
+		StringBuffer sb = new StringBuffer();		
+		FileReader in = new FileReader(new File(disk + "/" + "2.txt"));
+		BufferedReader br = new BufferedReader(in);
+		String line = null;
+		while((line = br.readLine()) != null) {
+			String[] str = line.split(" ");
+			int blocknum = Integer.parseInt(str[2]);
+			sb.append(str[0] + "\n");
+			FileReader infile = new FileReader(new File(disk + "/" + blocknum + ".txt"));
+			BufferedReader brfile = new BufferedReader(infile);
+			String linefile = null;
+			while((linefile = brfile.readLine()) != null) {
+				String[] strfile = linefile.split(" ");
+				sb.append("    --" + strfile[0] + "       block:" + strfile[2] + " length:" + strfile[3] + "\n");
+			}		
+			brfile.close();
+		}
+		br.close();
 		return sb.toString();
 	}
 
