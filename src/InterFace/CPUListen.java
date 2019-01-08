@@ -3,6 +3,7 @@ package InterFace;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -40,7 +41,7 @@ public class CPUListen extends Thread implements ActionListener {
 				fw.processtable.setText("没有进程");
 			}
 			while(!Process.readyqueue.isEmpty()) {
-				fw.content.setText("进程正在运行，请稍后。。。每条指令5秒");
+				fw.content.setText("进程正在运行，请稍后。。。每条指令" + OrderOpreation.time + "秒");
 				OrderOpreation op = new OrderOpreation(Process.readyqueue.peek(),fw);
 				fw.queue.setText(Process.getReadyQueue() + "\n" + Process.getWaitQueue());
 				int x = op.ExeOrder();
@@ -67,7 +68,9 @@ public class CPUListen extends Thread implements ActionListener {
 		try {
 			MemoryOperation.closeAll();
 			File f = new File("out.txt");
-			f.delete();
+			FileWriter fw = new FileWriter(f);
+			fw.write("");
+			fw.close();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import FileManage.FileOperation;
 import Windows.FileWindow;
 import MemoryManage.MemoryOperation;
+import ProcessManage.Process;
 
 public class FileListen implements ActionListener {
 	FileWindow fw;
@@ -18,7 +19,7 @@ public class FileListen implements ActionListener {
 		fo = new FileOperation();
 		mo = new MemoryOperation();
 		fw.content.setText("格式：命令 磁盘(DiskC/D) [目录(z)] [文件(z)]");
-		fw.table.setText("C盘内容:\n" + fo.showTable("DiskC") + "\n" + "D盘内容:\n" + fo.showTable("DiskD"));
+		fw.table.setText("C盘分配表:\n" + fo.showTable("DiskC") + "\n" + "D盘分配表:\n" + fo.showTable("DiskD"));
 		fw.strut.setText("C盘:\n" + fo.showStruct("DiskC") + "\n" + "D盘:\n" + fo.showStruct("DiskD"));
 		fw.memorytable.setText(MemoryOperation.show());
 	}
@@ -32,12 +33,13 @@ public class FileListen implements ActionListener {
 		String dirname = str[2];
 		String filename = str[3];
 		if(command.equals("help")) {
-			fw.content.setText("exe makdir deldir create delete type edit copy move change format close");
+			fw.document.setText(toHelp());
 		}
 		else if(command.equals("exe")) {
 			String name = str[1] + " " + str[2] + " " + str[3];
 			try {
 				CPUListen.create(name);
+				fw.queue.setText(Process.getReadyQueue() + "\n" + Process.getWaitQueue());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -53,10 +55,10 @@ public class FileListen implements ActionListener {
 			case "makdir":
 				try {
 					if(fo.makeDir(disk,dirname)) {
-						fw.content.setText("创建文件完成");
+						fw.content.setText("创建目录完成");
 					}
 					else {
-						fw.content.setText("文件重名，无法创建");
+						fw.content.setText("目录重名，无法创建");
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -151,11 +153,27 @@ public class FileListen implements ActionListener {
 				break;
 			}
 		}
-		fw.table.setText("C盘内容:\n" + fo.showTable("DiskC") + "D盘内容:\n" + fo.showTable("DiskD"));
+		fw.table.setText("C盘分配表:\n" + fo.showTable("DiskC") + "\n" + "D盘分配表:\n" + fo.showTable("DiskD"));
 		try {
 			fw.strut.setText("C盘:\n" + fo.showStruct("DiskC") + "\n" + "D盘:\n" + fo.showStruct("DiskD"));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public String toHelp() {
+		return "exe 执行"
+				+ "\nmakdir 创建目录"
+				+ "\ndeldir 删除目录"
+				+ "\ncreate 创建文件"
+				+ "\ndelete 删除文件"
+				+ "\ntype 显示文件"
+				+ "\nedit 编辑文件"
+				+ "\ncopy 拷贝文件"
+				+ "\nmove 移动文件"
+				+ "\nchange 改变文件属性"
+				+ "\nformat 磁盘格式化"
+				+ "\nclose 关机"
+				+ "\n ";
 	}
 }

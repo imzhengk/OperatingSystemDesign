@@ -47,7 +47,7 @@ public class FileWindow extends JFrame {
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
 		JPanel panel3 = new JPanel();
-		text = new JTextField(25);
+		text = new JTextField("help z z z",25);
 		content = new JTextField(30);
 		table = new JTextArea(15,25);  //磁盘分配表
 		strut = new JTextArea(15,25);  //目录文件结构名
@@ -88,7 +88,7 @@ public class FileWindow extends JFrame {
 		panel2.add(new JLabel("命令："));
 		panel2.add(text);
 		panel2.add(button);
-		panel2.add(new JLabel("       "));
+		panel2.add(new JLabel("    提示："));
 		panel2.add(content);
 		
 
@@ -110,7 +110,7 @@ public class FileWindow extends JFrame {
 		panel3.add(equa3);
 		panel3.add(new JLabel("B1"));
 		panel3.add(equb1);
-		panel3.add(new JLabel("B1"));
+		panel3.add(new JLabel("B2"));
 		panel3.add(equb2);
 		panel3.add(new JLabel("C1"));
 		panel3.add(equc1);

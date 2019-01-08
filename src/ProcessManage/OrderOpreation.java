@@ -14,7 +14,7 @@ public class OrderOpreation {
 	PCB pcb;
 	Queue<String> order = new LinkedList<String>();
 	static int x = 0;
-	int time = 2;
+	public static int time = 3;
 	
 	public String getOrderContent() {
 		StringBuffer sb = new StringBuffer();
@@ -27,7 +27,7 @@ public class OrderOpreation {
 	public OrderOpreation(PCB pcb,FileWindow fw) {
 		this.pcb = pcb;
 		this.order = pcb.order;
-		fw.processtable.setText(getOrderContent());
+		fw.processtable.setText("进程：" + pcb.name + "\n指令内容：\n" + getOrderContent());
 	}
 	
 	public int ExeOrder() {
@@ -87,7 +87,7 @@ public class OrderOpreation {
 	public void UseEquip(String str) {
 		char[] chs = str.toCharArray();
 		int time = chs[2] - '0';
-		pcb.time = 5;
+		pcb.time = time;
 		pcb.x = x;
 		Process.waitPCB(pcb);
 		String strs = pcb.name + " " + chs[1] + " " + time;

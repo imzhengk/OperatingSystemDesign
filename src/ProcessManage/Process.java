@@ -71,7 +71,7 @@ public class Process {
 	}
 	
 	public static void againPCB(PCB pcb) {
-		waitqueue.remove();
+//		waitqueue.remove();
 		readyqueue.offer(pcb);
 	}
 	

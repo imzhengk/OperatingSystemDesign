@@ -4,7 +4,6 @@ import Windows.FileWindow;
 import ProcessManage.Process;
 
 public class OrderThread extends Thread {
-	int time = 2;
 	FileWindow fw;
 	
 	public OrderThread(FileWindow fw) {

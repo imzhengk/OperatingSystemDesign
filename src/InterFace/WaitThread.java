@@ -18,7 +18,9 @@ public class WaitThread extends Thread {
 			}
 			while(!Process.waitqueue.isEmpty()) {
 				fw.queue.setText(Process.getReadyQueue() + "\n" + Process.getWaitQueue());
-				PCB pcb = Process.waitqueue.element();
+				PCB pcb = Process.waitqueue.poll();
+//				Waitt wtt = new Waitt(pcb,fw);
+//				wtt.start();
 				int time = pcb.time;
 				try {
 					Thread.sleep(time*1000);
