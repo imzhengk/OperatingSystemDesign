@@ -14,7 +14,6 @@ import Windows.FileWindow;
 
 public class CPUListen extends Thread implements ActionListener {  
 	FileWindow fw;
-	WaitThread wt;
 	Equip eq;
 	OrderThread ot;
 	
@@ -25,11 +24,9 @@ public class CPUListen extends Thread implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 		fw.setTitle("Mogic OS       开机时间：" + dateFormat.format(new Date()));
-		wt = new WaitThread(fw);
 		eq = new Equip(fw);
 		ot = new OrderThread(fw);
 		this.start();
-		wt.start();
 		eq.start();
 		ot.start();;
 	}

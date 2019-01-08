@@ -12,7 +12,7 @@ import MemoryManage.MemoryOperation;
 public class Process {
 
 	public static volatile Queue<PCB> readyqueue = new LinkedList<PCB>(); 
-	public static volatile Queue<PCB> waitqueue = new LinkedList<PCB>(); 
+	public static volatile LinkedList<PCB> waitqueue = new LinkedList<PCB>(); 
 	public static volatile Queue<String> orderqueue = new LinkedList<String>(); 
 	
 	public static String getReadyQueue() {
@@ -71,7 +71,7 @@ public class Process {
 	}
 	
 	public static void againPCB(PCB pcb) {
-//		waitqueue.remove();
+		waitqueue.remove(pcb);
 		readyqueue.offer(pcb);
 	}
 	

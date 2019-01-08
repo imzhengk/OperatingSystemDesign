@@ -1,9 +1,0 @@
-zk.exe x=4
-zk.exe x=4
-zk.exe x=4
-zk.exe x=4
-zk x=5
-zk x=5
-zk x=5
-zk x=5
-zk x=5

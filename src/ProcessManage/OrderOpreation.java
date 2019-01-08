@@ -89,9 +89,9 @@ public class OrderOpreation {
 		int time = chs[2] - '0';
 		pcb.time = time;
 		pcb.x = x;
+		pcb.equip = chs[1] + "";
 		Process.waitPCB(pcb);
-		String strs = pcb.name + " " + chs[1] + " " + time;
-		Equip.getEquip(strs);
+		Equip.getEquip(pcb);
 	}
 	
 	public void End() throws Exception {

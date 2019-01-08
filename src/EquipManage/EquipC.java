@@ -1,19 +1,19 @@
 package EquipManage;
 import java.util.LinkedList;
 
+import ProcessManage.PCB;
+import ProcessManage.Process;
 import Windows.FileWindow;
 
 public class EquipC extends Thread {
 	
     private final static int BUFFER_SIZE = 1;   
     private volatile static LinkedList<Object> buffer = new LinkedList<Object>();
-	String name;
-	int time;
+    PCB pcb;
 	FileWindow fw;
 	
-	public EquipC(String name,int time,FileWindow fw) {
-		this.name = name;
-		this.time = time;
+	public EquipC(PCB pcb,FileWindow fw) {
+		this.pcb = pcb;
 		this.fw = fw;
 	}
 
@@ -36,7 +36,8 @@ public class EquipC extends Thread {
                 buffer.notify();
             }
             try {
-                Thread.sleep(time*1000);
+                Thread.sleep(pcb.time*1000);
+                Process.againPCB(pcb);
                 int n = buffer.size();
                 if(n==1) {
                 	fw.equc1.setText("空闲");

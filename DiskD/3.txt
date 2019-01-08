@@ -1,1 +1,0 @@
-wutao.txt txt 4 0 write 

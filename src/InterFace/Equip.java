@@ -4,11 +4,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import EquipManage.*;
+import ProcessManage.PCB;
 import Windows.FileWindow;
 
 public class Equip extends Thread {
 	
-	static volatile Queue<String> euqipqueue = new LinkedList<String>();
+	static volatile Queue<PCB> euqipqueue = new LinkedList<PCB>();
 	FileWindow fw;
 	
 	public Equip(FileWindow fw) {
@@ -22,31 +23,30 @@ public class Equip extends Thread {
 				
 			}
 			while(!euqipqueue.isEmpty()) {
-				String[] strs = euqipqueue.element().split(" ");
-				int time = Integer.parseInt(strs[2]);
-				UseEquip(strs[0],strs[1],time);
+				UseEquip(euqipqueue.element());
 				euqipqueue.remove();
 			}
 		}
 	}
 	
-	public void UseEquip(String name,String equip,int time) {
+	public void UseEquip(PCB pcb) {
+		String equip = pcb.equip;
 		if(equip.equals("A")) {
-			Thread thread = new Thread(new EquipA(name,time,fw));
+			Thread thread = new Thread(new EquipA(pcb,fw));
 			thread.start();
 		}
 		else if(equip.equals("B")) {
-			Thread thread = new Thread(new EquipB(name,time,fw));
+			Thread thread = new Thread(new EquipB(pcb,fw));
 			thread.start();
 		}
 		else if(equip.equals("C")) {
-			Thread thread = new Thread(new EquipC(name,time,fw));
+			Thread thread = new Thread(new EquipC(pcb,fw));
 			thread.start();
 		}
 	}
 	
-	public static void getEquip(String str) {
-		euqipqueue.offer(str);
+	public static void getEquip(PCB pcb) {
+		euqipqueue.offer(pcb);
 	}
 
 }

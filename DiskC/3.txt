@@ -1,2 +1,0 @@
-zk.exe txt 5 28 write 
-zk txt 4 2 read 
