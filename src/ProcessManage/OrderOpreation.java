@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import EquipManage.Equip;
+import InterFace.Equip;
 import Windows.FileWindow;
 
 public class OrderOpreation {
@@ -49,12 +49,15 @@ public class OrderOpreation {
 			}
 			else if(str.startsWith("x=")) {
 				Assign(str);
+				Process.orderqueue.offer(str + " " + x);
 			}
 			else if(str.startsWith("x++")) {
 				SelfIn();
+				Process.orderqueue.offer(str + " " + x);
 			}
 			else if(str.startsWith("x--")) {
 				SelfDe();
+				Process.orderqueue.offer(str + " " + x);
 			}
 			try {
 				Thread.sleep(time*1000);

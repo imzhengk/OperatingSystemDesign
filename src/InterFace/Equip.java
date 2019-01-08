@@ -1,8 +1,9 @@
-package EquipManage;
+package InterFace;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
+import EquipManage.*;
 import Windows.FileWindow;
 
 public class Equip extends Thread {
@@ -34,14 +35,14 @@ public class Equip extends Thread {
 			Thread thread = new Thread(new EquipA(name,time,fw));
 			thread.start();
 		}
-//		else if(equip.equals("B")) {
-//			Thread thread = new Thread(new EquipB(name,time,fw));
-//			thread.start();
-//		}
-//		else if(equip.equals("C")) {
-//			Thread thread = new Thread(new EquipC(name,time,fw));
-//			thread.start();
-//		}
+		else if(equip.equals("B")) {
+			Thread thread = new Thread(new EquipB(name,time,fw));
+			thread.start();
+		}
+		else if(equip.equals("C")) {
+			Thread thread = new Thread(new EquipC(name,time,fw));
+			thread.start();
+		}
 	}
 	
 	public static void getEquip(String str) {

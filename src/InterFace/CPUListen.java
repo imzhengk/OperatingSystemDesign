@@ -1,28 +1,36 @@
-package ProcessManage;
+package InterFace;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import EquipManage.Equip;
-import MemoryManage.MemoryOperation;
+import MemoryManage.*;
+import ProcessManage.*;
+import ProcessManage.Process;
 import Windows.FileWindow;
 
 public class CPUListen extends Thread implements ActionListener {  
 	FileWindow fw;
 	WaitThread wt;
 	Equip eq;
+	OrderThread ot;
 	
 	public CPUListen(FileWindow fw) {
 		this.fw = fw;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		fw.setTitle("Mogic OS       开机时间：" + dateFormat.format(new Date()));
 		wt = new WaitThread(fw);
 		eq = new Equip(fw);
+		ot = new OrderThread(fw);
 		this.start();
 		wt.start();
 		eq.start();
+		ot.start();;
 	}
 
 	public void run() {

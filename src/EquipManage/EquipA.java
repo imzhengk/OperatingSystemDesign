@@ -31,13 +31,13 @@ public class EquipA extends Thread {
                 buffer.add(new Object());
                 int n = buffer.size();
                 if(n==1) {
-                	fw.equa1.setText(name + "使用A1" + time);
+                	fw.equa1.setText("使用中");
                 }
                 else if (n==2) {
-                	fw.equa2.setText(name + "使用A2" + time);
+                	fw.equa2.setText("使用中");
                 }
                 else if (n==3) {
-                	fw.equa3.setText(name + "使用A3" + time);
+                	fw.equa3.setText("使用中");
                 }
                 buffer.notify();
             }
@@ -45,13 +45,13 @@ public class EquipA extends Thread {
                 Thread.sleep(time*1000);
                 int n = buffer.size();
                 if(n==1) {
-                	fw.equa1.setText(name + "使用A1完成");
+                	fw.equa1.setText("空闲");
                 }
                 else if (n==2) {
-                	fw.equa2.setText(name + "使用A2完成");
+                	fw.equa2.setText("空闲");
                 }
                 else if (n==3) {
-                	fw.equa3.setText(name + "使用A3完成");
+                	fw.equa3.setText("空闲");
                 }
         		buffer.removeFirst();
         		break;

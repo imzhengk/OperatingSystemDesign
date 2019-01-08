@@ -1,5 +1,7 @@
-package ProcessManage;
+package InterFace;
 
+import ProcessManage.PCB;
+import ProcessManage.Process;
 import Windows.FileWindow;
 
 public class WaitThread extends Thread {  

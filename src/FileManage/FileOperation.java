@@ -258,7 +258,7 @@ public class FileOperation {
 			String linefile = null;
 			while((linefile = brfile.readLine()) != null) {
 				String[] strfile = linefile.split(" ");
-				sb.append("    --" + strfile[0] + "       block:" + strfile[2] + " length:" + strfile[3] + " 属性:" + strfile[4] + "\n");
+				sb.append("  --" + strfile[0] + "    block:" + strfile[2] + " length:" + strfile[3] + " 属性:" + strfile[4] + "\n");
 			}		
 			brfile.close();
 		}

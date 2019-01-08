@@ -7,7 +7,7 @@ public class PCB {
 	String name;//进程名
 	int page;//进程所在页
 	PCB next = null; //下一条进程地址
-	int time = 0; //阻塞时间
+	public int time = 0; //阻塞时间
 	int x = 0; //x的内容
 	Queue<String> order = new LinkedList<String>(); //指令内容
 	

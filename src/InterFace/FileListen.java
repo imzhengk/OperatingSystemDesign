@@ -1,12 +1,12 @@
-package FileManage;
+package InterFace;
 
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import FileManage.FileOperation;
 import Windows.FileWindow;
 import MemoryManage.MemoryOperation;
-import ProcessManage.CPUListen;
 
 public class FileListen implements ActionListener {
 	FileWindow fw;
@@ -17,7 +17,7 @@ public class FileListen implements ActionListener {
 		this.fw = fw;
 		fo = new FileOperation();
 		mo = new MemoryOperation();
-		fw.content.setText("格式：命令 磁盘(DiskC/D) [目录(z)] [文件(z)] exe DiskC User Zhengk");
+		fw.content.setText("格式：命令 磁盘(DiskC/D) [目录(z)] [文件(z)]");
 		fw.table.setText("C盘内容:\n" + fo.showTable("DiskC") + "\n" + "D盘内容:\n" + fo.showTable("DiskD"));
 		fw.strut.setText("C盘:\n" + fo.showStruct("DiskC") + "\n" + "D盘:\n" + fo.showStruct("DiskD"));
 		fw.memorytable.setText(MemoryOperation.show());

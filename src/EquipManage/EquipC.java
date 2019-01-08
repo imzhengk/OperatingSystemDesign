@@ -1,16 +1,20 @@
 package EquipManage;
 import java.util.LinkedList;
 
+import Windows.FileWindow;
+
 public class EquipC extends Thread {
 	
     private final static int BUFFER_SIZE = 1;   
-    private static LinkedList<Object> buffer = new LinkedList<Object>();	
+    private volatile static LinkedList<Object> buffer = new LinkedList<Object>();
 	String name;
 	int time;
+	FileWindow fw;
 	
-	public EquipC(String name,int time) {
+	public EquipC(String name,int time,FileWindow fw) {
 		this.name = name;
 		this.time = time;
+		this.fw = fw;
 	}
 
 	@Override
@@ -19,19 +23,24 @@ public class EquipC extends Thread {
 			synchronized (buffer){
             	while(buffer.size() >= BUFFER_SIZE){
             		try {
-                		System.out.printf(name + "等待中\n");
-						buffer.wait(5000);   
+						buffer.wait(2000);   
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
             	}
                 buffer.add(new Object());
-                System.out.println(name + "正在使用");
+                int n = buffer.size();
+                if(n==1) {
+                	fw.equc1.setText("使用中");
+                }
                 buffer.notify();
             }
             try {
                 Thread.sleep(time*1000);
-        		System.out.printf(name + "使用完成\n");
+                int n = buffer.size();
+                if(n==1) {
+                	fw.equc1.setText("空闲");
+                }
         		buffer.removeFirst();
         		break;
             } catch (InterruptedException e) {
