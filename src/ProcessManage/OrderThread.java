@@ -1,7 +1,6 @@
-package InterFace;
+package ProcessManage;
 
 import Windows.FileWindow;
-import ProcessManage.Process;
 
 public class OrderThread extends Thread {
 	FileWindow fw;

@@ -1,9 +1,8 @@
-package InterFace;
+package EquipManage;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import EquipManage.*;
 import ProcessManage.PCB;
 import Windows.FileWindow;
 

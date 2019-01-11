@@ -1,0 +1,3 @@
+hello.txt txt 7 6 write 
+膜法师.txt txt 6 0 write 
+qq.exe txt 8 28 write 

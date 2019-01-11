@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import InterFace.Equip;
+import EquipManage.Equip;
 import Windows.FileWindow;
 
 public class OrderOpreation {

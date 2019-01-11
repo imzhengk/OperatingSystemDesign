@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import EquipManage.Equip;
 import MemoryManage.*;
 import ProcessManage.*;
 import ProcessManage.Process;
